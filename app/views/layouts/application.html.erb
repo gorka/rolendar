@@ -12,7 +12,12 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto my-5 lg:my-10 px-5">
+      <div class="pb-5 mb-5 flex items-center space-x-5 border-b border-b-black">
+        <%= link_to "Home", root_path %>
+        <%= button_to "Login with Developer", "/auth/developer", form: { data: { turbo: false } }, class: "px-3 border border-black hover:bg-green-100" %>
+      </div>
+
       <%= yield %>
     </main>
   </body>
