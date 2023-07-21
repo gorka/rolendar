@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     
     if user && user.save
       set_authentication_cookie(user)
-      redirect_to request.env["omniauth.origin"], notice: "Te has conectado correctamente."
+      redirect_to request.env["omniauth.origin"] || root_path, notice: "Te has conectado correctamente."
     else
       redirect_to root_path, alert: "Ha ocurrido un error."
     end
@@ -23,6 +23,10 @@ class SessionsController < ApplicationController
     cookies.delete(AUTHENTICATION_COOKIE)
 
     redirect_to root_path, notice: "Te has desconectado correctamente."
+  end
+
+  def failure
+    redirect_to root_path, alert: "Ha ocurrido un error."
   end
 
   private
@@ -48,8 +52,8 @@ class SessionsController < ApplicationController
 
   def user_params
     user_data = {
-      username: omniauth_data["info"]["name"],
-      email: omniauth_data["info"]["email"]
+      username: omniauth_data.dig(:info, :name),
+      email: omniauth_data.dig(:info, :email) || omniauth_data.dig(:extra, :raw_info, :email)
     }
 
     case provider
