@@ -11,3 +11,18 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+module OmniauthHelper
+  def omniauth_discord_setup(user)
+    OmniAuth.config.test_mode = true
+
+    OmniAuth.config.mock_auth[:discord] = OmniAuth::AuthHash.new({
+      provider: "discord",
+      uid: user.discord_uid,
+      info: {
+        email: user.email,
+        name: user.username
+      }
+    })
+  end
+end

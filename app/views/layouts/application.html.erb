@@ -12,7 +12,25 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto my-5 lg:my-10 px-5">
+      <div class="pb-5 mb-5 flex items-center space-x-5 border-b border-b-black">
+        <%= link_to "Home", root_path %>
+
+        <% if Current.user %>
+          <span><%= Current.user.username %></span>
+          <%= button_to "Desconectar", sign_out_path, method: :delete, class: "px-3 border border-black hover:bg-red-100" %>
+        <% else %>
+          <%= button_to "Login with Developer", "/auth/developer", form: { data: { turbo: false } }, class: "px-3 border border-black hover:bg-green-100" if Rails.env.development? %>
+          <%= button_to "Login with Discord", "/auth/discord", form: { data: { turbo: false } }, class: "px-3 border border-black hover:bg-green-100" %>
+        <% end %>
+      </div>
+
+      <% flash.each do |key, value| %>
+        <div class="mb-5 px-3 py-2 border <%= flash_messages_class_names(key) %>">
+          <%= value %>
+        </div>
+      <% end %>
+
       <%= yield %>
     </main>
   </body>
