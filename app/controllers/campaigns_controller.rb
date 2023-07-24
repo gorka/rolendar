@@ -8,6 +8,8 @@ class CampaignsController < ApplicationController
 
   def show
     authorize_campaign
+
+    @sessions = @campaign.sessions.order(datetime: :asc)
   end
 
   def new
@@ -50,11 +52,11 @@ class CampaignsController < ApplicationController
       return
     end
 
-    def set_campaign
-      @campaign = Campaign.find(params[:id])
-    end
-
     def campaign_params
       params.require(:campaign).permit(:user_id, :title)
+    end
+
+    def set_campaign
+      @campaign = Campaign.find(params[:id])
     end
 end

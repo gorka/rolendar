@@ -4,7 +4,11 @@
     <%= link_to 'New campaign', new_campaign_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="campaigns" class="min-w-full">
-    <%= render @campaigns %>
+  <div id="campaigns">
+    <% @campaigns.each do |campaign| %>
+      <div class="">
+        <%= link_to campaign.title, campaign %>
+      </div>
+    <% end %>
   </div>
 </div>

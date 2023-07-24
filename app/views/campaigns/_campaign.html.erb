@@ -1,12 +1,10 @@
-<div id="<%= dom_id campaign %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
+<div id="<%= dom_id campaign %>" class="flex items-center justify-between">
+  <h1 class="font-bold text-4xl">
     <%= campaign.title %>
-  </p>
+  </h1>
 
-  <% if action_name != "show" %>
-    <%= link_to "Show this campaign", campaign, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this campaign', edit_campaign_path(campaign), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+  <div class="flex space-x-3">
+    <%= link_to "Edit", edit_campaign_path(@campaign), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= button_to "Destroy", campaign_path(@campaign), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+  </div>
 </div>

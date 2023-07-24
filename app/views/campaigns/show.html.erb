@@ -1,11 +1,19 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <%= render @campaign %>
+<%= render @campaign %>
 
-    <%= link_to 'Edit this campaign', edit_campaign_path(@campaign), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this campaign', campaign_path(@campaign), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-    <%= link_to 'Back to campaigns', campaigns_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
+<div class="mt-10 flex items-center justify-between">
+  <h2 class="font-bold text-2xl">Sessions</h2>
+  <%= link_to "New session", new_campaign_session_path(@campaign), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>
+
+<% if @sessions.any? %>
+  <% @sessions.each do |session| %>
+    <div class="flex items-center justify-between hover:bg-gray-50">
+      <span>
+        <%= l(session.datetime, format: :short) %>
+        <%= "- #{session.title}" if session.title.present? %>
+      </span>
+
+      <%= button_to "Destroy", campaign_session_path(session), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+  <% end %>
+<% end %>
