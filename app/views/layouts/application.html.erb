@@ -18,6 +18,7 @@
 
         <% if Current.user %>
           <span><%= Current.user.username %></span>
+          <%= link_to "Campaigns", campaigns_path %>
           <%= button_to "Desconectar", sign_out_path, method: :delete, class: "px-3 border border-black hover:bg-red-100" %>
         <% else %>
           <%= button_to "Login with Developer", "/auth/developer", form: { data: { turbo: false } }, class: "px-3 border border-black hover:bg-green-100" if Rails.env.development? %>
