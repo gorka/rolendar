@@ -2,3 +2,22 @@
   <h1 class="font-bold text-4xl"><%= @campaign.title %></h1>
   <%= link_to "Edit #{@campaign.model_name.human}", edit_campaign_path(@campaign), class: "px-3 border border-black hover:bg-green-100" %>
 </div>
+
+<div class="mt-10">
+  <div class="mb-5 flex items-center space-x-3">
+    <h2 class="text-2xl">Sessions</h2>
+    <%= link_to "New session", new_campaign_session_path(@campaign), class: "px-3 border border-black hover:bg-green-100" %>
+  </div>
+  <% if @sessions.any? %>
+    <ul class="list-disc list-inside">
+      <% @sessions.each do |session| %>
+        <li>
+          <%= l(session.datetime, format: :long) %>
+          <%= link_to "Edit", edit_campaign_session_path(session), class: "ml-3 text-xs" if @campaign.user == Current.user %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No sessions yet.</p>
+  <% end %>
+</div>

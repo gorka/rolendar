@@ -1,0 +1,12 @@
+<%= form_with model: model do |form| %>
+  <%= render partial: "common/model_errors", locals: { model: model } %>
+  <div class="my-5">
+    <%= form.label :title, class: "block" %>
+    <%= form.text_field :title, class: "border border-black" %>
+  </div>
+  <div class="my-5">
+    <%= form.label :datetime, class: "block" %>
+    <%= form.datetime_select :datetime, class: "border border-black" %>
+  </div>
+  <%= form.submit class: "px-3 border border-black hover:bg-green-100"%>
+<% end %>

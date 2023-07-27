@@ -6,7 +6,7 @@
 <% if @campaigns.any? %>
   <ul class="list-disc list-inside">
     <% @campaigns.each do |campaign| %>
-      <li><%= link_to campaign.title, campaign %></li>
+      <li><%= link_to campaign.title, campaign %> (<%= pluralize(campaign.campaign_sessions_count, "session") %>)</li>
     <% end %>
   </ul>
 <% else %>

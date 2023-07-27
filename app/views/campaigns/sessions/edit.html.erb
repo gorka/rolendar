@@ -1,0 +1,10 @@
+<div class="mb-5 flex items-center justify-between">
+  <h1 class="font-bold text-4xl">Edit session from: <%= @session.campaign.title %></h1>
+  <%= link_to "View #{@session.campaign.model_name.human}", campaign_path(@session.campaign), class: "px-3 border border-black hover:bg-green-100" %>
+</div>
+
+<%= render partial: "form", locals: { model: @session } %>
+
+<div class="mt-10">
+  <%= button_to "Delete #{@session.model_name.human}", campaign_session_path(@session), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "px-3 text-red-500 border border-red-500 bg-red-100 hover:text-white hover:bg-red-500" %>
+</div>
