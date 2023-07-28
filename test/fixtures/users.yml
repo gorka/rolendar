@@ -5,3 +5,9 @@ one:
   email: nicolas@cage.com
   omniauth_developer_uid: nil
   discord_uid: 666
+
+member:
+  username: Member
+  email: memeber@email.com
+  omniauth_developer_uid: nil
+  discord_uid: 123

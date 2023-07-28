@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  campaign: with_sessions
+  owner: true
+
+two:
+  user: one
+  campaign: without_sessions
+  owner: true
+
+three:
+  user: member
+  campaign: with_sessions
+  owner: false

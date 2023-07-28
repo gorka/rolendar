@@ -7,21 +7,22 @@ class CampaignsController < ApplicationController
 
   def show
     set_campaign
-    authorize_campaign
+    can_see_campaign
+    @members = @campaign.members.order("membership.created_at": :asc)
     @sessions = @campaign.sessions.order(datetime: :asc)
   end
 
   def new
-    @campaign = Current.user.campaigns.new
+    @campaign = Campaign.new
   end
 
   def edit
     set_campaign
-    authorize_campaign
+    can_admin_campaign
   end
 
   def create
-    @campaign = Current.user.campaigns.new(campaign_params)
+    @campaign = Campaign.new(campaign_params)
 
     if @campaign.save
       redirect_to campaign_path(@campaign), notice: "Campaign was successfully created."
@@ -32,7 +33,7 @@ class CampaignsController < ApplicationController
 
   def update
     set_campaign
-    authorize_campaign
+    can_admin_campaign
 
     if @campaign.update(campaign_params)
       redirect_to campaign_path(@campaign), notice: "Campaign was successfully updated."
@@ -43,7 +44,7 @@ class CampaignsController < ApplicationController
 
   def destroy
     set_campaign
-    authorize_campaign
+    can_admin_campaign
 
     @campaign.destroy
     redirect_to campaigns_path, notice: "Campaign was successfully destroyed."
@@ -51,8 +52,12 @@ class CampaignsController < ApplicationController
 
   private
 
-    def authorize_campaign
-      raise Authentication::NotAuthorizedError if @campaign.user != Current.user
+    def can_see_campaign
+      raise Authentication::NotAuthorizedError unless @campaign.has_member?(Current.user)
+    end
+
+    def can_admin_campaign
+      raise Authentication::NotAuthorizedError unless @campaign.owned_by?(Current.user)
     end
 
     def campaign_params
