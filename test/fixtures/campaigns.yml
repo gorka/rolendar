@@ -1,9 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 with_sessions:
-  user: one
   title: A campaign with sessions
 
 without_sessions:
-  user: one
   title: A campaign without sessions
