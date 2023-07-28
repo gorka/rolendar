@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :campaigns do
     scope shallow_prefix: "campaign" do
-      resources :sessions, controller: "campaigns/sessions", shallow: true
+      resources :sessions, only: %i[ new edit create update destroy ], controller: "campaigns/sessions", shallow: true
     end
   end
 

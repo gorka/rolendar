@@ -25,7 +25,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "cannot see a campaign" do
-    get campaign_url(campaigns(:one))
+    get campaign_url(campaigns(:without_sessions))
 
     assert_response :redirect
   end
@@ -37,7 +37,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "cannot see edit campaign form" do
-    get edit_campaign_url(campaigns(:one))
+    get edit_campaign_url(campaigns(:without_sessions))
 
     assert_response :redirect
   end
@@ -49,13 +49,13 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "cannot update campaign" do
-    patch campaign_url(campaigns(:one)), params: { campaign: { title: "Masks of Nyarlathotep" } }
+    patch campaign_url(campaigns(:without_sessions)), params: { campaign: { title: "Masks of Nyarlathotep" } }
 
     assert_response :redirect
   end
 
   test "cannot destroy a campaign" do
-    delete campaign_url(campaigns(:one))
+    delete campaign_url(campaigns(:without_sessions))
 
     assert_response :redirect
   end
@@ -71,7 +71,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
   test "cannot see a campaign from another user" do
     sign_in_user(new_user)
-    get campaign_url(campaigns(:one))
+    get campaign_url(campaigns(:without_sessions))
 
     assert_response :redirect
   end
@@ -85,7 +85,7 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
   test "cannot see edit campaign form from another user" do
     sign_in_user(new_user)
-    get edit_campaign_url(campaigns(:one))
+    get edit_campaign_url(campaigns(:without_sessions))
 
     assert_response :redirect
   end
@@ -99,14 +99,14 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
   test "cannot update campaign from another user" do
     sign_in_user(new_user)
-    patch campaign_url(campaigns(:one)), params: { campaign: { title: "Masks of Nyarlathotep" } }
+    patch campaign_url(campaigns(:without_sessions)), params: { campaign: { title: "Masks of Nyarlathotep" } }
 
     assert_response :redirect
   end
 
   test "cannot destroy a campaign from another user" do
     sign_in_user(new_user)
-    delete campaign_url(campaigns(:one))
+    delete campaign_url(campaigns(:without_sessions))
 
     assert_response :redirect
   end
@@ -115,28 +115,28 @@ class CampaignsControllerTest < ActionDispatch::IntegrationTest
 
   test "cann see one of their campaigns" do
     sign_in_user(users(:one))
-    get campaign_url(campaigns(:one))
+    get campaign_url(campaigns(:without_sessions))
 
     assert_response :success
   end
 
   test "can see edit campaign form of one of their campaigns" do
     sign_in_user(users(:one))
-    get edit_campaign_url(campaigns(:one))
+    get edit_campaign_url(campaigns(:without_sessions))
 
     assert_response :success
   end
 
   test "can update one of their campaigns" do
     sign_in_user(users(:one))
-    patch campaign_url(campaigns(:one)), params: { campaign: { title: "Masks of Nyarlathotep" } }
+    patch campaign_url(campaigns(:without_sessions)), params: { campaign: { title: "Masks of Nyarlathotep" } }
 
-    assert_redirected_to campaign_url(campaigns(:one))
+    assert_redirected_to campaign_url(campaigns(:without_sessions))
   end
 
   test "can destroy one of their campaigns" do
     sign_in_user(users(:one))
-    delete campaign_url(campaigns(:one))
+    delete campaign_url(campaigns(:without_sessions))
 
     assert_redirected_to campaigns_url
   end
