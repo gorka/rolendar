@@ -1,0 +1,10 @@
+<%= month_calendar(events: @sessions, attribute: :datetime) do |date, sessions| %>
+  <%= date %>
+
+  <% sessions.each do |session| %>
+    <div class="px-1 border border-black">
+      <span class="block"><%= session.campaign.title %></span>
+      <%= session.title if session.title.present? %>
+    </div>
+  <% end %>
+<% end %>
