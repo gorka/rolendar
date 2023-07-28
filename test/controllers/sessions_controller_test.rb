@@ -7,7 +7,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     user = User.new({
       username: "Pepe",
       email: "pepe@email.com",
-      discord_uid: 123
+      discord_uid: 111
     })
     omniauth_discord_setup(user)
 
