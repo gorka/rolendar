@@ -8,6 +8,7 @@ class CampaignsController < ApplicationController
   def show
     set_campaign
     authorize_campaign
+    @sessions = @campaign.sessions.order(datetime: :asc)
   end
 
   def new
