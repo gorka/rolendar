@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "home/index"
 
+  resource :calendar, only: %i[ show ]
   resources :campaigns do
     scope shallow_prefix: "campaign" do
       resources :sessions, only: %i[ new edit create update destroy ], controller: "campaigns/sessions", shallow: true
