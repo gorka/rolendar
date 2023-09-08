@@ -1,0 +1,7 @@
+Hola<%= @name.present? ? " #{@name}" : "" %>,
+
+<%= @invitation.owner.username %> te ha enviado una invitación para unirte a su partida "<%= @invitation.campaign.title %>".
+
+Entra a <%= invitation_url(@invitation.token) %> para aceptar o rechazar la invitación.
+
+Para aceptar la invitación necesitas tener una cuenta de Rolendar asociada a este email. Si tu cuenta de Rolendar está asociada a otro email puedes cambiarlo desde tu panel de ajustes o pedir que te envíen la invitación a otro email.

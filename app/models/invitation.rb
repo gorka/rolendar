@@ -7,6 +7,8 @@ class Invitation < ApplicationRecord
   validates_presence_of :email
   validates :campaign, uniqueness: { scope: :email, message: "can't invite a user more than once." }
 
+  after_create :send_invitation_email
+
   scope :persisted, -> { select(&:persisted?) }
 
   def status
@@ -28,4 +30,10 @@ class Invitation < ApplicationRecord
   def rejected?
     rejected_at.present?
   end
+
+  private
+
+    def send_invitation_email
+      InvitationMailer.with(invitation: self).confirm.deliver_later
+    end
 end

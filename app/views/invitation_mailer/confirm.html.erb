@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hola<%= @name.present? ? " #{@name}" : "" %>,</p>
+    <p><%= @invitation.owner.username %> te ha enviado una invitación para unirte a su partida "<%= @invitation.campaign.title %>". <%= link_to "Acepta o rechaza", invitation_url(@invitation.token) %> la invitación.</p>
+    <p>Para aceptar la invitación necesitas tener una cuenta de Rolendar asociada a este email. Si tu cuenta de Rolendar está asociada a otro email puedes cambiarlo desde tu panel de ajustes o pedir que te envíen la invitación a otro email.</p>
+
+    <p>Si el enlace de arriba no funciona puedes copiarlo en tu navegador: <%= invitation_url(@invitation.token) %></p>
+  </body>
+</html>
