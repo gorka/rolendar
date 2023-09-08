@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_28_221152) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_01_223639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_221152) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "campaign_sessions_count", default: 0, null: false
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.bigint "owner_id", null: false
+    t.bigint "user_id"
+    t.bigint "campaign_id", null: false
+    t.string "email", null: false
+    t.string "token", null: false
+    t.datetime "accepted_at"
+    t.datetime "rejected_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_invitations_on_campaign_id"
+    t.index ["owner_id"], name: "index_invitations_on_owner_id"
+    t.index ["token"], name: "unique_token", unique: true
+    t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -51,6 +67,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_221152) do
   end
 
   add_foreign_key "campaign_sessions", "campaigns"
+  add_foreign_key "invitations", "campaigns"
+  add_foreign_key "invitations", "users"
+  add_foreign_key "invitations", "users", column: "owner_id"
   add_foreign_key "memberships", "campaigns"
   add_foreign_key "memberships", "users"
 end

@@ -8,8 +8,8 @@ class CampaignsController < ApplicationController
   def show
     set_campaign
     can_see_campaign
-    @members = @campaign.members.order("membership.created_at": :asc)
-    @sessions = @campaign.sessions.order(datetime: :asc)
+    
+    @invitation = @campaign.invitations.new
   end
 
   def new

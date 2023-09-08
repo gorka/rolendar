@@ -22,8 +22,8 @@
           <%= link_to "Calendar", calendar_path %>
           <%= button_to "Desconectar", sign_out_path, method: :delete, class: "px-3 border border-black hover:bg-red-100" %>
         <% else %>
-          <%= button_to "Login with Developer", "/auth/developer", form: { data: { turbo: false } }, class: "px-3 border border-black hover:bg-green-100" if Rails.env.development? %>
-          <%= button_to "Login with Discord", "/auth/discord", form: { data: { turbo: false } }, class: "px-3 border border-black hover:bg-green-100" %>
+          <%= button_to "Login with Developer", "/auth/developer/?origin=#{request.original_url}", form: { data: { turbo: false } }, class: "px-3 border border-black hover:bg-green-100" if Rails.env.development? %>
+          <%= button_to "Login with Discord", "/auth/discord/?origin=#{request.original_url}", form: { data: { turbo: false } }, class: "px-3 border border-black hover:bg-green-100" %>
         <% end %>
       </div>
 

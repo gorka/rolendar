@@ -7,23 +7,26 @@
   <div class="mb-5 flex items-center space-x-3">
     <h2 class="text-2xl">Members</h2>
   </div>
-    <ul class="list-disc list-inside">
-      <% @campaign.members.each do |member| %>
-        <li>
-          <%= member.username %>
-        </li>
-      <% end %>
-    </ul>
+
+  <ul class="list-disc list-inside">
+    <% @campaign.members.each do |member| %>
+      <li>
+        <%= member.username %>
+      </li>
+    <% end %>
+  </ul>
 </div>
+
+<%= render "invitations" if @campaign.owned_by?(Current.user) %>
 
 <div class="my-10">
   <div class="mb-5 flex items-center space-x-3">
     <h2 class="text-2xl">Sessions</h2>
     <%= link_to "New session", new_campaign_session_path(@campaign), class: "px-3 border border-black hover:bg-green-100" if @campaign.owner == Current.user %>
   </div>
-  <% if @sessions.any? %>
+  <% if @campaign.sessions.any? %>
     <ul class="list-disc list-inside">
-      <% @sessions.each do |session| %>
+      <% @campaign.sessions.each do |session| %>
         <li>
           <%= l(session.datetime, format: :long) %>
           <%= link_to "Edit", edit_campaign_session_path(session), class: "ml-3 text-xs" if @campaign.owner == Current.user %>
