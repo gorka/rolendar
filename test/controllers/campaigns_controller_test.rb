@@ -1,10 +1,5 @@
 require "test_helper"
 
-def sign_in_user(user)
-  omniauth_discord_setup(user)
-  get auth_callback_url("discord")
-end
-
 def new_user
   User.new({
     username: "Pepe",

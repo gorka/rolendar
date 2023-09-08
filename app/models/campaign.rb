@@ -1,7 +1,8 @@
 class Campaign < ApplicationRecord
-  has_many :sessions, class_name: "CampaignSession"
+  has_many :sessions, -> { order(datetime: :desc) }, class_name: "CampaignSession"
   has_many :memberships, dependent: :destroy
-  has_many :members, through: :memberships, source: :user
+  has_many :members, -> { includes(:memberships).order("memberships.created_at": :asc) }, through: :memberships, source: :user
+  has_many :invitations
 
   validates_presence_of :title
 

@@ -1,0 +1,10 @@
+<div class="space-y-5">
+
+  <% if Current.user %>
+    <p><%= @invitation.owner.username %> te ha invitado a unirte a su campaña <strong><%= @invitation.campaign.title %></strong></p>
+    <p><%= link_to "Acepta", accept_invitation_path(@invitation.token), class: "btn btn-green" %></p>
+  <% else %>
+    <p>Conéctate para ver y aceptar esta invitación.</p>
+  <% end %>
+
+</div>

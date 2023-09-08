@@ -1,0 +1,25 @@
+<div>
+  <div class="mb-5 flex items-center space-x-3">
+    <h2 class="text-2xl">Invitations</h2>
+  </div>
+
+  <% if @campaign.invitations.persisted.any? %>
+    <ul class="list-disc list-inside">
+    <% @campaign.invitations.persisted.each do |invitation| %>
+      <li>
+        <%= invitation.email %> - <%= invitation.status %>
+      </li>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <%= form_with model: [@campaign, @invitation] do |form| %>
+    <%= render partial: "common/model_errors", locals: { model: @invitation } %>
+
+    <div class="my-5">
+      <%= form.label :email, class: "block" %>
+      <%= form.text_field :email, class: "border border-black" %>
+    </div>
+    <%= form.submit class: "px-3 border border-black hover:bg-green-100" %>
+  <% end %>
+</div>

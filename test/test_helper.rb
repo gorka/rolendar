@@ -25,4 +25,9 @@ module OmniauthHelper
       }
     })
   end
+
+  def sign_in_user(user)
+    omniauth_discord_setup(user)
+    get auth_callback_url("discord")
+  end
 end

@@ -14,3 +14,23 @@ three:
   user: member
   campaign: with_sessions
   owner: false
+
+four:
+  user: owner
+  campaign: with_invitations
+  owner: true
+
+owner_to_campaign_with_accepted_invitation:
+  user: owner
+  campaign: with_accepted_invitation
+  owner: true
+
+accepted_invitation_to_campaign_with_accepted_invitation:
+  user: member
+  campaign: with_accepted_invitation
+  owner: false
+
+six:
+  user: owner
+  campaign: with_rejected_invitation
+  owner: true
