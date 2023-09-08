@@ -5,3 +5,12 @@ with_sessions:
 
 without_sessions:
   title: A campaign without sessions
+
+with_invitations:
+  title: A campaign with invitations
+
+with_accepted_invitation:
+  title: A campaign with an accepted invitation
+
+with_rejected_invitation:
+  title: A campaign with a rejected invitation

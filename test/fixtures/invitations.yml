@@ -1,0 +1,28 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+new:
+  owner: owner
+  user: invited
+  email: invited@rolendar.com
+  campaign: with_invitations
+  token: $3cr3t-new
+  accepted_at: nil
+  rejected_at: nil
+
+accepted:
+  owner: owner
+  user: member
+  email: owner@rolendar.com
+  campaign: with_accepted_invitation
+  token: $3cr3t-accepted
+  accepted_at: 2023-09-01 17:36:39
+  rejected_at: nil
+
+rejected:
+  owner: owner
+  user: member
+  email: owner@rolendar.com
+  campaign: with_rejected_invitation
+  token: $3cr3t-rejected
+  accepted_at: nil
+  rejected_at: 2023-09-01 17:36:39

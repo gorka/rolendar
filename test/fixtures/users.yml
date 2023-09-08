@@ -6,8 +6,26 @@ one:
   omniauth_developer_uid: nil
   discord_uid: 666
 
+user:
+  username: User
+  email: user@rolendar.com
+  omniauth_developer_uid: nil
+  discord_uid: 000
+
 member:
   username: Member
-  email: memeber@email.com
+  email: memeber@rolendar.com
   omniauth_developer_uid: nil
   discord_uid: 123
+
+owner:
+  username: Owner
+  email: owner@rolendar.com
+  omniauth_developer_uid: nil
+  discord_uid: 999
+
+invited:
+  username: Invited
+  email: invited@rolendar.com
+  omniauth_developer_uid: nil
+  discord_uid: 111

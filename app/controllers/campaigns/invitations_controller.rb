@@ -3,15 +3,14 @@ class Campaigns::InvitationsController < ApplicationController
 
   def show
     set_invitation
-    redirect_if_accepted_or_rejected
-    redirect_if_not_for_current_user
-    
+    redirect_to root_path and return if accepted_or_rejected
+    raise Authentication::NotAuthorizedError if not_for_current_user
   end
   
   def accept
     set_invitation
-    redirect_if_accepted_or_rejected
-    redirect_if_not_for_current_user
+    redirect_to root_path and return if accepted_or_rejected
+    raise Authentication::NotAuthorizedError if not_for_current_user
 
     @invitation.accept!
 
@@ -20,6 +19,7 @@ class Campaigns::InvitationsController < ApplicationController
 
   def create
     set_campaign
+    can_create_invitation
 
     @invitation = @campaign.invitations.new(invitation_params)
     user = User.find_by(email: invitation_params.fetch(:email))
@@ -52,17 +52,16 @@ class Campaigns::InvitationsController < ApplicationController
       params.require(:invitation).permit(:email)
     end
 
-    def redirect_if_accepted_or_rejected
+    def accepted_or_rejected
       # todo: if accepted by user, redirect to campaign
-
-      if @invitation.accepted? || @invitation.rejected?
-        redirect_to root_path and return
-      end
+      @invitation.accepted? || @invitation.rejected?
     end
 
-    def redirect_if_not_for_current_user
-      if Current.user && @invitation.user != Current.user
-        redirect_to root_path and return
-      end
+    def not_for_current_user
+      Current.user && @invitation.user != Current.user
+    end
+
+    def can_create_invitation
+      raise Authentication::NotAuthorizedError unless @campaign.owned_by?(Current.user)
     end
 end
