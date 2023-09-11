@@ -23,7 +23,7 @@ class Campaigns::InvitationsController < ApplicationController
 
   def create
     set_campaign
-    can_create_invitation
+    authorize InvitationPolicy.create?(@campaign)
 
     @invitation = @campaign.invitations.new(invitation_params)
     user = User.find_by(email: invitation_params.fetch(:email))
@@ -63,9 +63,5 @@ class Campaigns::InvitationsController < ApplicationController
 
     def not_for_current_user
       Current.user && @invitation.user != Current.user
-    end
-
-    def can_create_invitation
-      raise Authorization::NotAuthorizedError unless @campaign.owned_by?(Current.user)
     end
 end
