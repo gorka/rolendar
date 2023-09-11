@@ -20,6 +20,12 @@
           <span><%= Current.user.username %></span>
           <%= link_to "Campaigns", campaigns_path %>
           <%= link_to "Calendar", calendar_path %>
+          <%= link_to invitations_path do %>
+            Invitations
+            <% if Current.user.has_pending_invitations? %>
+              <span class="inline-block w-2 h-2 mr-2 bg-red-500 rounded-full"></span>
+            <% end %>
+          <% end %>
           <%= button_to "Desconectar", sign_out_path, method: :delete, class: "px-3 border border-black hover:bg-red-100" %>
         <% else %>
           <%= button_to "Login with Developer", "/auth/developer/?origin=#{request.original_url}", form: { data: { turbo: false } }, class: "px-3 border border-black hover:bg-green-100" if Rails.env.development? %>

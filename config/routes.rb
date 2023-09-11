@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       resources :invitations, only: %i[ create ], controller: "campaigns/invitations", shallow: true
     end
   end
-  resources :invitations, only: %i[ show ], controller: "campaigns/invitations", param: :token
+  resources :invitations, only: %i[ index show ], controller: "campaigns/invitations", param: :token
 
   get "/invitations/:token/accept", to: "campaigns/invitations#accept", as: :accept_invitation
 

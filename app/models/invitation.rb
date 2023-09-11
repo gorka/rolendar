@@ -10,6 +10,7 @@ class Invitation < ApplicationRecord
   after_create :send_invitation_email
 
   scope :persisted, -> { select(&:persisted?) }
+  scope :pending, -> { where(accepted_at: nil).where(rejected_at: nil) }
 
   def status
     return "Accepted" if accepted?

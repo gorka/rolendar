@@ -1,5 +1,9 @@
 class Campaigns::InvitationsController < ApplicationController
-  before_action :require_authentication, only: %i[ accept create ]
+  before_action :require_authentication, only: %i[ index accept create ]
+
+  def index
+    @invitations = Current.user.received_invitations.pending
+  end
 
   def show
     set_invitation

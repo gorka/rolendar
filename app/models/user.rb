@@ -6,4 +6,8 @@ class User < ApplicationRecord
   has_many :received_invitations, class_name: "Invitation", foreign_key: "user_id"
 
   validates_presence_of :username
+
+  def has_pending_invitations?
+    received_invitations.pending.any?
+  end
 end
