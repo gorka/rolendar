@@ -1,0 +1,13 @@
+<div class="space-y-5">
+  <% if @invitations.any? %>
+    <% @invitations.each do |invitation| %>
+      <div class="space-x-5 p-2 bg-gray-100">
+        <%= l(invitation.created_at, format: :short) %> - 
+        <%= invitation.owner.username %> te ha invitado a unirte a su campaña: <strong><%= invitation.campaign.title %></strong>
+        <%= link_to "Acepta", accept_invitation_path(invitation.token), class: "btn btn-green" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No invitations.</p>
+  <% end %>
+</div>
