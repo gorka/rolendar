@@ -3,19 +3,19 @@ class Campaigns::SessionsController < ApplicationController
 
   def new
     set_campaign
-    can_admin_campaign
+    authorize CampaignSessionPolicy.new?(@campaign)
     
     @session = @campaign.sessions.new
   end
 
   def edit
     set_session
-    can_admin_campaign
+    authorize CampaignSessionPolicy.edit?(@session)
   end
 
   def create
     set_campaign
-    can_admin_campaign
+    authorize CampaignSessionPolicy.create?(@campaign)
 
     @session = @campaign.sessions.new(session_params)
     
@@ -28,7 +28,7 @@ class Campaigns::SessionsController < ApplicationController
 
   def update
     set_session
-    can_admin_campaign
+    authorize CampaignSessionPolicy.update?(@session)
 
     if @session.update(session_params)
       redirect_to campaign_path(@session.campaign), notice: "Session was successfully updated."
@@ -39,18 +39,13 @@ class Campaigns::SessionsController < ApplicationController
 
   def destroy
     set_session
-    can_admin_campaign
+    authorize CampaignSessionPolicy.destroy?(@session)
 
     @session.destroy
     redirect_to campaign_path(@session.campaign), notice: "Session was successfully destroyed."
   end
 
   private
-
-    def can_admin_campaign
-      campaign = @campaign || @session.campaign
-      raise Authentication::NotAuthorizedError unless campaign.owned_by?(Current.user)
-    end
 
     def set_campaign
       @campaign = Campaign.find(params[:campaign_id])
