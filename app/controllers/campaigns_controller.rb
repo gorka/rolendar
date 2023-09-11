@@ -7,7 +7,7 @@ class CampaignsController < ApplicationController
 
   def show
     set_campaign
-    can_see_campaign
+    authorize CampaignPolicy.show?(@campaign)
     
     @invitation = @campaign.invitations.new
   end
@@ -18,7 +18,7 @@ class CampaignsController < ApplicationController
 
   def edit
     set_campaign
-    can_admin_campaign
+    authorize CampaignPolicy.edit?(@campaign)
   end
 
   def create
@@ -33,7 +33,7 @@ class CampaignsController < ApplicationController
 
   def update
     set_campaign
-    can_admin_campaign
+    authorize CampaignPolicy.update?(@campaign)
 
     if @campaign.update(campaign_params)
       redirect_to campaign_path(@campaign), notice: "Campaign was successfully updated."
@@ -44,21 +44,13 @@ class CampaignsController < ApplicationController
 
   def destroy
     set_campaign
-    can_admin_campaign
+    authorize CampaignPolicy.destroy?(@campaign)
 
     @campaign.destroy
     redirect_to campaigns_path, notice: "Campaign was successfully destroyed."
   end
 
   private
-
-    def can_see_campaign
-      raise Authentication::NotAuthorizedError unless @campaign.has_member?(Current.user)
-    end
-
-    def can_admin_campaign
-      raise Authentication::NotAuthorizedError unless @campaign.owned_by?(Current.user)
-    end
 
     def campaign_params
       params.require(:campaign).permit(:title)
