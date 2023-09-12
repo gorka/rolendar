@@ -20,7 +20,9 @@ class Invitation < ApplicationRecord
   end
 
   def accept!
-    self.campaign.members << self.user
+    user = self.user || User.find_by(email: email)
+
+    self.campaign.members << user
     update!(accepted_at: Time.now)
   end
 
